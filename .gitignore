@@ -1,0 +1,38 @@
+ac_immune_venv/
+
+
+# Python Bytecode
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Virtual Environment
+venv/
+env/
+
+# Streamlit Cache
+.streamlit/
+*.log
+
+# Jupyter Notebook Checkpoints
+.ipynb_checkpoints/
+
+# System Files
+.DS_Store
+Thumbs.db
+
+# IDE Configuration
+.vscode/
+.idea/
+
+# Dataset Files
+data/alzheimers_disease_data.csv
+
+# OS Files
+*.swp
+*.swo
+
+# Dependencies
+*.egg-info/
+pip-log.txt
