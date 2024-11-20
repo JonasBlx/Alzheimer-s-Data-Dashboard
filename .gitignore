@@ -26,9 +26,6 @@ Thumbs.db
 .vscode/
 .idea/
 
-# Dataset Files
-data/alzheimers_disease_data.csv
-
 # OS Files
 *.swp
 *.swo
