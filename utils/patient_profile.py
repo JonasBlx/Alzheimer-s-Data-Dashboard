@@ -1,5 +1,6 @@
 import streamlit as st
 
+
 def display_patient_profile(data, patient_id):
     """
     Display the profile of a patient based on their ID.
