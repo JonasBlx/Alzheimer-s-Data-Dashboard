@@ -58,10 +58,13 @@ st.markdown("[Alzheimer's Disease Dataset on Kaggle](https://www.kaggle.com/data
 data = load_data('data/alzheimers_disease_data.csv')
 data = clean_data(data)
 
-# Replace numeric codes with meaningful labels
+# Sidebar: Filters (apply filters before mapping)
+filtered_data = add_filters(data)
+
+# Now, replace numeric codes with meaningful labels in filtered_data
 # Mapping for Gender
 gender_mapping = {0: 'Male', 1: 'Female'}
-data['Gender'] = data['Gender'].map(gender_mapping)
+filtered_data['Gender'] = filtered_data['Gender'].map(gender_mapping)
 
 # Mapping for Ethnicity
 ethnicity_mapping = {
@@ -70,7 +73,7 @@ ethnicity_mapping = {
     2: 'Asian',
     3: 'Other'
 }
-data['Ethnicity'] = data['Ethnicity'].map(ethnicity_mapping)
+filtered_data['Ethnicity'] = filtered_data['Ethnicity'].map(ethnicity_mapping)
 
 # Mapping for Education Level
 education_mapping = {
@@ -79,25 +82,23 @@ education_mapping = {
     2: 'Bachelor',
     3: 'Graduate'
 }
-data['EducationLevel'] = data['EducationLevel'].map(education_mapping)
+filtered_data['EducationLevel'] = filtered_data['EducationLevel'].map(education_mapping)
 
 # Update categorical_cols if necessary
-categorical_cols = [col for col in categorical_cols if col in data.columns]
+categorical_cols = [col for col in categorical_cols if col in filtered_data.columns]
 
 # Update numeric_cols
-numeric_cols = data.select_dtypes(include=['float64', 'int64']).columns
+numeric_cols = filtered_data.select_dtypes(include=['float64', 'int64']).columns
 numeric_cols = numeric_cols.drop('PatientID', errors='ignore')
-
-# Sidebar: Filters
-filtered_data = add_filters(data)
 
 # Create tabs
 tabs = st.tabs([
     "Descriptive Statistics",
     "Correlations",
     "Individual Patient Profile",
-    "Classification", "Prediction"
-    ])
+    "Classification",
+    "Prediction"
+])
 
 # Tab 1: Descriptive Statistics
 with tabs[0]:
@@ -149,15 +150,15 @@ with tabs[2]:
     selected_patient_id = st.selectbox(
         "Select Patient ID",
         options=patient_ids
-        )
+    )
 
-    display_patient_profile(data, selected_patient_id)
+    display_patient_profile(filtered_data, selected_patient_id)  # Use filtered_data here
 
 # Tab 4: Classification
 with tabs[3]:
     st.header("🔍 Binary Classification of Alzheimer's Diagnosis")
 
-    # Preprocessing data
+    # Preprocessing data (use original data without mapping)
     (
         X_train,
         X_test,
@@ -181,8 +182,8 @@ with tabs[3]:
         options=[
             "Logistic Regression",
             "Random Forest"
-            ]
-        )
+        ]
+    )
 
     # Train the model
     if st.button("Train Model"):
@@ -205,7 +206,7 @@ with tabs[3]:
                                labels=dict(
                                    x="Predicted",
                                    y="Actual"
-                                   ),
+                               ),
                                text_auto=True)
             st.plotly_chart(cm_fig)
 
