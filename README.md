@@ -1,5 +1,7 @@
 # Alzheimer's Data Dashboard 🧠
 
+👉 [View the Dashboard](https://alzheimer-s-data-dashboard.streamlit.app/)
+
 This is a **Streamlit application** designed to analyze and visualize Alzheimer's disease data. The app provides features for exploring descriptive statistics, performing correlation analysis, viewing individual patient profiles, and utilizing machine learning models for diagnosis prediction.
 
 ---
